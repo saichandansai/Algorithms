@@ -1,0 +1,55 @@
+public class QuickSortHoare {
+    // Quick Sort function
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            // Partition the array and get the pivot index
+            int pivotIndex = partition(arr, low, high);
+
+            // Recursively sort left and right subarrays
+            quickSort(arr, low, pivotIndex);
+            quickSort(arr, pivotIndex + 1, high);
+        }
+    }
+
+    // Hoare partition scheme
+    private static int partition(int[] arr, int low, int high) {
+        int pivot = arr[low]; // Choose the first element as pivot
+        int i = low - 1, j = high + 1;
+
+        while (true) {
+            // Find leftmost element greater than pivot
+            do {
+                i++;
+            } while (arr[i] < pivot);
+
+            // Find rightmost element smaller than pivot
+            do {
+                j--;
+            } while (arr[j] > pivot);
+
+            if (i >= j) {
+                return j;
+            }
+
+            // Swap arr[i] and arr[j]
+            swap(arr, i, j);
+        }
+    }
+
+    // Swap helper function
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1, 5};
+        quickSort(arr, 0, arr.length - 1);
+
+        System.out.println("Sorted array: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+}
